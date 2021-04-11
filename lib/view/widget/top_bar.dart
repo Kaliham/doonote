@@ -12,6 +12,7 @@ class TopBar extends StatelessWidget {
         body,
         BackButton(),
         Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ThemeSwitch(),
           ],

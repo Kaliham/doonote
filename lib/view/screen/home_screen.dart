@@ -1,3 +1,5 @@
+import 'package:doonote/model/notepad.dart';
+import 'package:doonote/view/widget/list/notepad_item.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           _buildAdd(context),
           Expanded(
             child: FutureBuilder(
-              future: Hive.openBox<Sketch>(sketchBoxName),
+              future: Hive.openBox<Notepad>(notepadBoxName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.error != null) {
@@ -57,7 +59,6 @@ class HomeScreen extends StatelessWidget {
           child: Text(
             "DooNote",
             style: TextStyle(
-              fontFamily: "Open Sans",
               fontSize: 32,
             ),
           ),
@@ -81,7 +82,7 @@ class HomeScreen extends StatelessWidget {
               AddPopup.show(context, (string) {
                 Navigator.pop(context);
                 print("done");
-              });
+              }, true);
             },
           ),
         ),
@@ -90,21 +91,21 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    Box<Sketch> box = Hive.box<Sketch>(sketchBoxName);
+    Box<Notepad> box = Hive.box<Notepad>(notepadBoxName);
     return Container(
       child: ValueListenableBuilder(
         valueListenable: box.listenable(),
-        builder: (context, Box<Sketch> value, child) {
+        builder: (context, Box<Notepad> value, child) {
           print(value.values);
-          List<Sketch> sketchs = value.values.toList().reversed.toList();
+          List<Notepad> notepads = value.values.toList().reversed.toList();
           List<dynamic> keys = value.keys.toList().reversed.toList();
           return Container(
             width: 600,
             child: ListView.builder(
-              itemCount: sketchs.length,
+              itemCount: notepads.length,
               itemBuilder: (context, index) {
-                return NoteItem(
-                  sketch: sketchs[index],
+                return NotepadItem(
+                  notepad: notepads[index],
                   index: index,
                   boxKey: keys[index],
                 );

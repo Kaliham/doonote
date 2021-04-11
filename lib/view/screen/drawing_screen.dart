@@ -95,10 +95,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
       margin: EdgeInsets.only(top: 30),
       child: AddButton(
         onPressed: () {
-          AddPopup.show(
-            context,
-            addPopupOnAccept,
-          );
+          AddPopup.show(context, addPopupOnAccept, false);
         },
       ),
     );

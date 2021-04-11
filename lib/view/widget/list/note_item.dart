@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:doonote/constants/route_constants.dart';
-import 'package:doonote/model/adapter/colored_path_adapter.dart';
-import 'package:doonote/model/colored_path.dart';
 import 'package:doonote/model/sketch.dart';
 import 'package:doonote/view/widget/list/list_item.dart';
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class NoteItem extends StatelessWidget {
   final Sketch sketch;
@@ -30,7 +28,6 @@ class NoteItem extends StatelessWidget {
             child: Text(
               sketch.title,
               style: TextStyle(
-                fontFamily: "Open Sans",
                 fontSize: 20,
               ),
             ),

@@ -1,4 +1,6 @@
 import 'package:desktop_window/desktop_window.dart';
+import 'package:doonote/model/notepad.dart';
+import 'package:doonote/view/screen/notepad_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doonote/bloc/cubit/draw_cubit.dart';
@@ -27,6 +29,7 @@ void main() async {
 
   Hive.registerAdapter(ColoredPathAdapter());
   Hive.registerAdapter(SketchAdapter());
+  Hive.registerAdapter(NotepadAdapter());
   runApp(DrawApp());
 }
 
@@ -43,30 +46,36 @@ class DrawApp extends StatelessWidget {
         ),
       ],
       child: HiveBoxLoader(
-          boxName: idBox,
+          boxName: notepadIdsBoxName,
           builder: (context, snapshot) {
             return HiveBoxLoader(
-                boxName: darkModeBox,
+                boxName: idBox,
                 builder: (context, snapshot) {
-                  return ValueListenableBuilder(
-                    valueListenable: Hive.box(darkModeBox).listenable(),
-                    builder: (context, box, widget) {
-                      bool darkMode = box.get('darkMode', defaultValue: false);
-                      return MaterialApp(
-                        title: 'Hive doonote',
-                        debugShowCheckedModeBanner: false,
-                        themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-                        theme: ThemeData(
-                          primarySwatch: Colors.blue,
-                          fontFamily: 'OpenSans',
-                        ),
-                        routes: {},
-                        onGenerateRoute: onGenerateRoute,
-                        darkTheme: ThemeData.dark(),
-                        home: HomeScreen(),
-                      );
-                    },
-                  );
+                  return HiveBoxLoader(
+                      boxName: darkModeBox,
+                      builder: (context, snapshot) {
+                        return ValueListenableBuilder(
+                          valueListenable: Hive.box(darkModeBox).listenable(),
+                          builder: (context, box, widget) {
+                            bool darkMode =
+                                box.get('darkMode', defaultValue: false);
+                            return MaterialApp(
+                              title: 'Hive doonote',
+                              debugShowCheckedModeBanner: false,
+                              themeMode:
+                                  darkMode ? ThemeMode.dark : ThemeMode.light,
+                              theme: ThemeData(
+                                primarySwatch: Colors.blue,
+                                fontFamily: 'OpenSans',
+                              ),
+                              routes: {},
+                              onGenerateRoute: onGenerateRoute,
+                              darkTheme: ThemeData.dark(),
+                              home: HomeScreen(),
+                            );
+                          },
+                        );
+                      });
                 });
           }),
     );
@@ -78,6 +87,14 @@ class DrawApp extends StatelessWidget {
       return MaterialPageRoute(builder: (context) {
         return DrawingScreen(
           boxName: args,
+        );
+      });
+    }
+    if (settings.name == notepadRoute) {
+      final args = settings.arguments as Notepad;
+      return MaterialPageRoute(builder: (context) {
+        return NotepadScreen(
+          args,
         );
       });
     }

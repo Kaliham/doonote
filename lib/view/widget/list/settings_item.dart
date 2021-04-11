@@ -9,7 +9,6 @@ class SettingsItem extends StatelessWidget {
   final dynamic boxKey;
 
   TextStyle get style => TextStyle(
-        fontFamily: "Open Sans",
         fontSize: 20,
       );
 

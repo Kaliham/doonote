@@ -15,7 +15,6 @@ class SettingsScreen extends StatelessWidget {
       topTitle: Text(
         "Settings",
         style: TextStyle(
-          fontFamily: "Open Sans",
           fontSize: 20,
         ),
       ),

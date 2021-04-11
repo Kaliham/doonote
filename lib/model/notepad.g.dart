@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sketch.dart';
+part of 'notepad.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SketchAdapter extends TypeAdapter<Sketch> {
+class NotepadAdapter extends TypeAdapter<Notepad> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  Sketch read(BinaryReader reader) {
+  Notepad read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Sketch()
+    return Notepad()
       ..id = fields[0] as String
       ..title = fields[1] as String
       ..order = fields[2] as int;
   }
 
   @override
-  void write(BinaryWriter writer, Sketch obj) {
+  void write(BinaryWriter writer, Notepad obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -40,7 +40,7 @@ class SketchAdapter extends TypeAdapter<Sketch> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SketchAdapter &&
+      other is NotepadAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
